@@ -21,8 +21,6 @@ Game.prototype = {
       this.game.world.centerY,
       "fondo"
     );
-    this.banckground.anchor.setTo(0.5);
-    this.banckground.scale.setTo(0.5);
 
     this.floor = this.game.add.tileSprite(0, 0, this.game.width, 70, "floor");
     this.floor.y = this.game.height - this.floor.height;
@@ -78,7 +76,7 @@ Game.prototype = {
     this.currentIndexEnemy = 0;
 
     this.endOfLevelTimer = this.game.time.events.add(
-      370 * 10,
+      370 * 1000,
       function () {
         localStorage.setItem("score", this.score);
         this.game.state.start("GameOver");
@@ -100,7 +98,7 @@ Game.prototype = {
         },
         this
       );
-      total_time += time_to_spawn * 1000;
+      total_time += time_to_spawn * 100;
       console.log(total_time);
     }
     //second wave
@@ -113,7 +111,7 @@ Game.prototype = {
         },
         this
       );
-      total_time += time_to_spawn * 1000;
+      total_time += time_to_spawn * 100;
       console.log(total_time);
     }
     //third wave
@@ -126,7 +124,7 @@ Game.prototype = {
         },
         this
       );
-      total_time += time_to_spawn * 1000;
+      total_time += time_to_spawn * 100;
       console.log(total_time);
     }
     //forth wave
@@ -141,7 +139,7 @@ Game.prototype = {
         },
         this
       );
-      total_time += time_to_spawn * 1000;
+      total_time += time_to_spawn * 100;
       console.log(total_time);
     }
     //fifth wave
@@ -156,7 +154,7 @@ Game.prototype = {
         },
         this
       );
-      total_time += time_to_spawn * 1000;
+      total_time += time_to_spawn * 100;
       console.log(total_time);
     }
   },
@@ -173,6 +171,7 @@ Game.prototype = {
     } else {
       enemy.reset(key);
     }
+    console.log(enemy);
     enemy.body.allowGravity = false;
   },
   update: function () {
@@ -210,8 +209,8 @@ Game.prototype = {
   },
   damagePlayer: function (player, enemie) {
     enemie.kill();
-    player.damage(1);
-    this.hpText.text = "HP :" + this.player.hp;
+    this.player.hp--;
+    this.lifeText.text = "HP :" + this.player.hp;
     if (this.player.hp == 0) {
       localStorage.setItem("score", this.score);
       this.game.state.start("GameOver");
